@@ -1,7 +1,7 @@
 project(
     'djinterop',
     'cpp', 'c',
-    version: '0.15.3',
+    version: '0.16.0',
     license: 'LGPL-3.0',
     default_options: ['cpp_std=c++17', 'default_library=shared'])
 

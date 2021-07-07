@@ -23,6 +23,7 @@
 #error This library needs at least a C++17 compliant compiler
 #endif
 
+#include <cstring>
 #include <ostream>
 
 namespace djinterop
@@ -32,22 +33,35 @@ struct semantic_version
     int maj;
     int min;
     int pat;
+    const char* metadata = nullptr;
 };
 
 inline std::ostream& operator<<(
     std::ostream& os, const semantic_version& version)
 {
-    return os << version.maj << "." << version.min << "." << version.pat;
+    if (version.metadata == nullptr)
+        return os << version.maj << "." << version.min << "." << version.pat;
+    else
+        return os << version.maj << "." << version.min << "." << version.pat
+                  << "+" << version.metadata;
 }
 
 inline bool operator==(const semantic_version& a, const semantic_version& b)
 {
-    return a.maj == b.maj && a.min == b.min && a.pat == b.pat;
+    bool metadata_equal;
+    if (a.metadata == nullptr && a.metadata == nullptr)
+        metadata_equal = true;
+    else if (a.metadata == nullptr || b.metadata == nullptr)
+        metadata_equal = false;
+    else
+        metadata_equal = !strcmp(a.metadata, b.metadata);
+
+    return a.maj == b.maj && a.min == b.min && a.pat == b.pat && metadata_equal;
 }
 
 inline bool operator!=(const semantic_version& a, const semantic_version& b)
 {
-    return !(a.maj == b.maj && a.min == b.min && a.pat == b.pat);
+    return !(a == b);
 }
 
 inline bool operator>=(const semantic_version& a, const semantic_version& b)

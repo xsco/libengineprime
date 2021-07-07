@@ -61,8 +61,13 @@ const std::vector<reference_script> reference_db_scripts{
     reference_script{"/ref/sc5000/firmware-1.3.1", el::version_1_13_2},
     reference_script{"/ref/sc5000/firmware-1.4.0", el::version_1_15_0},
     reference_script{"/ref/sc5000/firmware-1.5.1", el::version_1_17_0},
-    reference_script{"/ref/ep/ep-1.5.1", el::version_1_18_0},
+    reference_script{"/ref/ep/ep-1.5.1", el::version_1_18_0_ep},
     reference_script{"/ref/sc5000/firmware-1.5.2", el::version_1_17_0},
+    reference_script{"/ref/ep/ep-1.6.0", el::version_1_18_0_ep},
+    reference_script{"/ref/sc5000/firmware-1.6.0", el::version_1_18_0_fw},
+    reference_script{"/ref/ep/ep-1.6.1", el::version_1_18_0_ep},
+    reference_script{"/ref/sc5000/firmware-1.6.1", el::version_1_18_0_fw},
+    reference_script{"/ref/sc5000/firmware-1.6.2", el::version_1_18_0_fw},
 };
 
 struct example_file

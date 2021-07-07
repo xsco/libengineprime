@@ -25,7 +25,7 @@ namespace djinterop::enginelibrary::schema
 class schema_1_6_0 : public schema_creator_validator
 {
 public:
-    std::string name() const override { return "SC5000 Firmware 1.0.1"; }
+    std::string name() const override { return "Firmware 1.0.1"; }
 
 protected:
     virtual void verify_music_master_list(sqlite::database& db) const;

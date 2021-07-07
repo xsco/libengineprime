@@ -93,7 +93,7 @@ const stdx::optional<std::string> default_uri;
 
 const int64_t default_is_beatgrid_locked = 0;
 
-const int64_t default_is_rendered = 1;
+const int64_t default_is_rendered = 0;
 
 const int64_t default_has_serato_values = 0;
 
@@ -123,6 +123,7 @@ length_field_data to_length_fields(
         oss << std::setw(2) << std::setfill('0');
         oss << (*length / 60);
         oss << ":";
+        oss << std::setw(2) << std::setfill('0');
         oss << (*length % 60);
         length_mm_ss = oss.str();
     }
@@ -211,7 +212,7 @@ timestamp_field_data to_timestamp_fields(
     }
 
     stdx::optional<std::string> ever_played =
-        std::string{last_played_at ? "1" : "0"};
+        last_played_at ? stdx::optional<std::string>{"1"} : stdx::nullopt;
 
     return timestamp_field_data{
         last_played_at_ts, last_modified_at_ts, last_accessed_at_ts,

@@ -25,7 +25,7 @@ namespace djinterop::enginelibrary::schema
 class schema_1_7_1 : public schema_1_6_0
 {
 public:
-    std::string name() const override { return "SC5000 Firmware 1.0.3"; }
+    std::string name() const override { return "Firmware 1.0.3"; }
 
 protected:
     void verify_information(sqlite::database& db, const std::string& db_name) const override;

@@ -19,13 +19,13 @@
 
 #include <djinterop/djinterop.hpp>
 #include <djinterop/enginelibrary/schema/schema_1_13_1.hpp>
-#include <djinterop/enginelibrary/schema/schema_1_18_0.hpp>
+#include <djinterop/enginelibrary/schema/schema_1_18_0_ep.hpp>
 #include <djinterop/enginelibrary/schema/schema_validate_utils.hpp>
 #include <djinterop/util.hpp>
 
 namespace djinterop::enginelibrary::schema
 {
-void schema_1_18_0::verify_track(sqlite::database& db) const
+void schema_1_18_0_ep::verify_track(sqlite::database& db) const
 {
     {
         table_info cols{db, "music", "Track"};
@@ -161,19 +161,18 @@ void schema_1_18_0::verify_track(sqlite::database& db) const
     }
 }
 
-void schema_1_18_0::verify_performance_data(sqlite::database& db) const
+void schema_1_18_0_ep::verify_performance_data(sqlite::database& db) const
 {
     // This schema uses the same variant seen in 1.13.1 that does not specify
     // an explicit type for some columns in the `PerformanceData` table.
     schema_1_13_1::verify_performance_data(db);
 }
 
-void schema_1_18_0::verify_music_schema(sqlite::database& db) const
+void schema_1_18_0_ep::verify_music_schema(sqlite::database& db) const
 {
     // List of tables unchanged since 1.17.0.
     verify_music_master_list(db);
 
-    // New `isBeatGridLocked` column on the `Track` table.
     verify_information(db, "music");
     verify_album_art(db);
     verify_change_log(db, "music");
@@ -198,20 +197,20 @@ void schema_1_18_0::verify_music_schema(sqlite::database& db) const
     verify_track(db);
 }
 
-void schema_1_18_0::verify_performance_schema(sqlite::database& db) const
+void schema_1_18_0_ep::verify_performance_schema(sqlite::database& db) const
 {
     // List of tables unchanged since 1.17.0.
     verify_performance_master_list(db);
 
-    // This schema uses the same variant seen in 1.13.1 that does not specify
-    // an explicit type for some columns in the `PerformanceData` table.
     verify_information(db, "perfdata");
     verify_change_log(db, "perfdata");
     verify_performance_data(db);
 }
 
-void schema_1_18_0::create_music_schema(sqlite::database& db)
+void schema_1_18_0_ep::create_music_schema(sqlite::database& db)
 {
+    // Note that the below statements create the NUMERIC-typed variant of the
+    // 1.18.0 schema.
     db << "CREATE TABLE music.ListHierarchy ( [listId] INTEGER, [listType] "
           "INTEGER, [listIdChild] INTEGER, [listTypeChild] INTEGER, FOREIGN "
           "KEY ( [listId], [listType] ) REFERENCES List ( [id], [type] )  ON "
@@ -535,15 +534,17 @@ void schema_1_18_0::create_music_schema(sqlite::database& db)
           "[schemaVersionMinor], [schemaVersionPatch], "
           "[currentPlayedIndiciator], [lastRekordBoxLibraryImportReadCounter]) "
           "VALUES (?, ?, ?, ?, ?, ?)"
-       << uuid_str << version_1_18_0.maj << version_1_18_0.min
-       << version_1_18_0.pat << current_played_indicator_fake_value << 0;
+       << uuid_str << version_1_18_0_ep.maj << version_1_18_0_ep.min
+       << version_1_18_0_ep.pat << current_played_indicator_fake_value << 0;
 
     // Default prepare list entry
     db << "INSERT INTO music.Preparelist VALUES (1, 'Prepare')";
 }
 
-void schema_1_18_0::create_performance_schema(sqlite::database& db)
+void schema_1_18_0_ep::create_performance_schema(sqlite::database& db)
 {
+    // Note that the below statements create the NUMERIC-typed variant of the
+    // 1.18.0 schema.
     db << "CREATE TABLE perfdata.PerformanceData ( [id] INTEGER, [isAnalyzed] "
           "NUMERIC, [isRendered] NUMERIC, [trackData] BLOB, "
           "[highResolutionWaveFormData] BLOB, [overviewWaveFormData] BLOB, "
@@ -572,8 +573,8 @@ void schema_1_18_0::create_performance_schema(sqlite::database& db)
           "[schemaVersionMinor], [schemaVersionPatch], "
           "[currentPlayedIndiciator], [lastRekordBoxLibraryImportReadCounter]) "
           "VALUES (?, ?, ?, ?, ?, ?)"
-       << uuid_str << version_1_18_0.maj << version_1_18_0.min
-       << version_1_18_0.pat << 0 << 0;
+       << uuid_str << version_1_18_0_ep.maj << version_1_18_0_ep.min
+       << version_1_18_0_ep.pat << 0 << 0;
 }
 
 }  // namespace djinterop::enginelibrary::schema

@@ -47,12 +47,18 @@ const std::vector<version_pair> equal_versions{
     version_pair{
         djinterop::semantic_version{1, 7, 1},
         djinterop::semantic_version{1, 7, 1}},
+    version_pair{
+        djinterop::semantic_version{1, 18, 0, "abc"},
+        djinterop::semantic_version{1, 18, 0, "abc"}},
 };
 
 const std::vector<version_pair> unequal_versions{
     version_pair{
         djinterop::semantic_version{1, 6, 0},
         djinterop::semantic_version{1, 7, 1}},
+    version_pair{
+        djinterop::semantic_version{1, 18, 0, "abc"},
+        djinterop::semantic_version{1, 18, 0, "xyz"}},
 };
 
 const std::vector<version_pair> ascending_versions{

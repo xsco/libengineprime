@@ -35,6 +35,7 @@ enum class metadata_str_type
     file_extension = 13,
     unknown_15 = 15,
     unknown_16 = 16,
+    unknown_17 = 17,
 };
 
 enum class metadata_int_type
@@ -50,6 +51,7 @@ enum class metadata_int_type
     unknown_9 = 9,
     last_play_hash = 10,
     unknown_11 = 11,
+    unknown_12 = 12,
 };
 
 }  // namespace djinterop::enginelibrary

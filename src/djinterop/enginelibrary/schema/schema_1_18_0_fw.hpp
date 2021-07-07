@@ -22,12 +22,16 @@
 
 namespace djinterop::enginelibrary::schema
 {
-class schema_1_18_0 : public schema_1_17_0
+class schema_1_18_0_fw : public schema_1_17_0
 {
 public:
-    std::string name() const override { return "EP 1.5.1"; }
+    std::string name() const override
+    {
+        return "Firmware 1.6.0/1.6.1/1.6.2";
+    }
 
 protected:
+    void verify_list(sqlite::database& db) const override;
     void verify_track(sqlite::database& db) const override;
     void verify_performance_data(sqlite::database& db) const override;
 

@@ -1,0 +1,12 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE PerformanceData ( [id] INTEGER, [isAnalyzed] INTEGER, [isRendered] INTEGER, [trackData] BLOB, [highResolutionWaveFormData] BLOB, [overviewWaveFormData] BLOB, [beatData] BLOB, [quickCues] BLOB, [loops] BLOB, [hasSeratoValues] INTEGER, [hasRekordboxValues] INTEGER, [hasTraktorValues] INTEGER, PRIMARY KEY ( [id] ) );
+CREATE TABLE Information ( [id] INTEGER PRIMARY KEY AUTOINCREMENT, [uuid] TEXT, [schemaVersionMajor] INTEGER, [schemaVersionMinor] INTEGER, [schemaVersionPatch] INTEGER, [currentPlayedIndiciator] INTEGER, [lastRekordBoxLibraryImportReadCounter] INTEGER);
+INSERT INTO Information VALUES(1,'846ac943-b769-4852-86e5-534549ab959d',1,18,0,0,0);
+CREATE TABLE ChangeLog ( [id] INTEGER PRIMARY KEY AUTOINCREMENT, [itemId] INTEGER);
+DELETE FROM sqlite_sequence;
+INSERT INTO sqlite_sequence VALUES('Information',1);
+CREATE INDEX index_PerformanceData_id ON PerformanceData ( id );
+CREATE INDEX index_Information_id ON Information ( id );
+CREATE TRIGGER trigger_after_update_PerformanceData AFTER UPDATE ON PerformanceData FOR EACH ROW BEGIN 	INSERT INTO ChangeLog (itemId) VALUES(NEW.id); END;
+COMMIT;

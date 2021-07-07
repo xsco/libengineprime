@@ -67,21 +67,24 @@ constexpr const semantic_version version_1_15_0{1, 15, 0};
 /// The schema associated with SC5000 Firmware 1.5.1/1.5.2.
 constexpr const semantic_version version_1_17_0{1, 17, 0};
 
-/// The schema associated with Engine Prime 1.5.1.
-constexpr const semantic_version version_1_18_0{1, 18, 0};
+/// The schema associated with Engine Prime 1.5.1/1.6.0/1.6.1.
+constexpr const semantic_version version_1_18_0_ep{1, 18, 0, "ep"};
+
+/// The schema associated with SC5000 Firmware 1.6.0/1.6.1/1.6.2.
+constexpr const semantic_version version_1_18_0_fw{1, 18, 0, "fw"};
 
 /// Set of available schemas.
-constexpr const std::array<semantic_version, 10> all_versions{
-    version_1_6_0,  version_1_7_1,  version_1_9_1,  version_1_11_1,
-    version_1_13_0, version_1_13_1, version_1_13_2, version_1_15_0,
-    version_1_17_0, version_1_18_0,
+constexpr const std::array<semantic_version, 11> all_versions{
+    version_1_6_0,  version_1_7_1,     version_1_9_1,     version_1_11_1,
+    version_1_13_0, version_1_13_1,    version_1_13_2,    version_1_15_0,
+    version_1_17_0, version_1_18_0_ep, version_1_18_0_fw,
 };
 
 /// The most recent schema version supported by the library.
-constexpr semantic_version version_latest = version_1_18_0;
+constexpr semantic_version version_latest = version_1_18_0_fw;
 
 /// The most recent "firmware-usable" schema version supported by the library.
-constexpr semantic_version version_latest_firmware = version_1_17_0;
+constexpr semantic_version version_latest_firmware = version_1_18_0_fw;
 
 namespace standard_pad_colors
 {
@@ -173,8 +176,8 @@ normalize_beatgrid(std::vector<beatgrid_marker> beatgrid, int64_t sample_count);
 /// the waveform and the samples it represents is known.  This function
 /// provides the required number of samples per waveform entry that should
 /// be understood when constructing or reading waveforms in Engine Prime format.
-int64_t DJINTEROP_PUBLIC required_waveform_samples_per_entry(
-    double sample_rate);
+int64_t DJINTEROP_PUBLIC
+required_waveform_samples_per_entry(double sample_rate);
 
 /// Given an enginelibrary database, returns the path to its p.db sqlite
 /// database file
